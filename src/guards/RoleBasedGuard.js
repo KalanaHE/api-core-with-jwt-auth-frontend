@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Container, Alert, AlertTitle } from "@mui/material";
-import { useSelector } from "react-redux";
-import { selectLoggedInUserPermissions } from "../redux/selectors/userSelector";
+import { Navigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 RoleBasedGuard.propTypes = {
   accessibleRoles: PropTypes.array, // Example ['view_user_profile', 'view_user_home']
@@ -9,18 +9,14 @@ RoleBasedGuard.propTypes = {
 };
 
 export default function RoleBasedGuard({ accessibleRoles, children }) {
-  const userRoles = useSelector(selectLoggedInUserPermissions);
-  const isAuthorized = () => {
-    return accessibleRoles.some((role) => {
-      if (userRoles.includes(role)) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-  };
+  const {
+    user: { permissions },
+  } = useAuth();
 
-  if (!isAuthorized()) {
+  const isAuthorized = accessibleRoles.every((element) => permissions.indexOf(element) !== -1);
+
+
+  if (!isAuthorized) {
     return (
       <Container>
         <Alert severity="error">

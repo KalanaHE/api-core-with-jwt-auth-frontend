@@ -108,7 +108,7 @@ function AuthProvider({ children }) {
   const login = async (email, password) => {
     const response = await AuthService.login({ email, password });
     const {
-      data: { token, ...user },
+      data: { token, permissions, ...user },
     } = response.data;
 
     setAccessToken(token);
@@ -116,7 +116,7 @@ function AuthProvider({ children }) {
     dispatch({
       type: "LOGIN",
       payload: {
-        user,
+        user: { ...user, permissions },
       },
     });
   };
@@ -128,7 +128,7 @@ function AuthProvider({ children }) {
     } = response.data;
 
     setAccessToken(token);
-    
+
     dispatch({
       type: "REGISTER",
       payload: {

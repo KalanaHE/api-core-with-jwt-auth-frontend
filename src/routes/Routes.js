@@ -1,12 +1,13 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { Suspense, lazy } from "react";
 import { Navigate, useRoutes, useLocation } from "react-router-dom";
 import DashboardLayout from "../layouts/dashboard";
 import LogoOnlyLayout from "../layouts/LogoOnlyLayout";
 import LoadingScreen from "../components/LoadingScreen";
 import AuthGuard from "../guards/AuthGuard";
+import RoleBasedGuard from "../guards/RoleBasedGuard";
 
 const Loadable = (Component) => (props) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { pathname } = useLocation();
 
   return (
@@ -24,7 +25,6 @@ const Register = Loadable(lazy(() => import("../pages/auth/Register")));
 const Home = Loadable(lazy(() => import("../pages/Home")));
 const PageOne = Loadable(lazy(() => import("../pages/PageOne")));
 const PageTwo = Loadable(lazy(() => import("../pages/PageTwo")));
-
 
 const NotFound = Loadable(lazy(() => import("../pages/Page404")));
 const NoPermission = Loadable(lazy(() => import("../pages/Page403")));
@@ -53,15 +53,28 @@ export default function Router() {
         // { path: "/dashboard", element: <Navigate to="/dashboard/one" replace />, index: true },
         {
           path: "/home",
-          element: <Home />,
+          element: (
+            <RoleBasedGuard accessibleRoles={["VIEW_GENERAL_USER_HOME"]}>
+              <Home />
+            </RoleBasedGuard>
+          ),
         },
         {
           path: "/page-one",
-          element: <PageOne />,
+
+          element: (
+            <RoleBasedGuard accessibleRoles={["VIEW_GENERAL_USER_PAGE_ONE"]}>
+              <PageOne />
+            </RoleBasedGuard>
+          ),
         },
         {
           path: "/page-two",
-          element: <PageTwo />,
+          element: (
+            <RoleBasedGuard accessibleRoles={["VIEW_GENERAL_USER_PAGE_TWO"]}>
+              <PageTwo />
+            </RoleBasedGuard>
+          ),
         },
       ],
     },
