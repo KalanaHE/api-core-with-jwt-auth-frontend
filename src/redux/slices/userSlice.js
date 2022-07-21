@@ -43,9 +43,6 @@ export const fetchUser = (payload) => {
       const response = await UserService.getUser(payload);
       if (response && response.status === 200) {
         dispatch(setRetrievingUserDataStatus("succeeded"));
-        console.log('====================================');
-        console.log(response);
-        console.log('====================================');
       } else {
         throw new Error();
       }
