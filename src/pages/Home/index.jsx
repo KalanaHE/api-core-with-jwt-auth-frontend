@@ -1,9 +1,17 @@
 import { Container, Typography } from "@mui/material";
 import useSettings from "../../hooks/useSettings";
 import Page from "../../components/Page";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { fetchUser } from "../../redux/slices/userSlice";
 
 export default function Home() {
   const { themeStretch } = useSettings();
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(fetchUser(1))
+  },[dispatch])
 
   return (
     <Page title="Home">

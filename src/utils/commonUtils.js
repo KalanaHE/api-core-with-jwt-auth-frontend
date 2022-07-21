@@ -1,26 +1,5 @@
 import moment from "moment";
-import { ADDRESS_COMPONENTS, DAYS, MONTHS } from "../constants/commonConstants";
-
-export const getCookie = (name) => {
-  const nameEQ = name + "=";
-  const ca = document.cookie.split(";");
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) === " ") c = c.substring(1, c.length);
-    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-  }
-  return null;
-};
-
-export const setCookie = (name, value, days) => {
-  let expires = "";
-  if (days) {
-    const date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    expires = `; expires=${date.toUTCString()}`;
-  }
-  document.cookie = `${name}=${value || ""}${expires}; path=/`;
-};
+import { DAYS, MONTHS } from "../constants/commonConstants";
 
 export const eventNameGenerator = (domain) => (action) => `${domain}/${action}`;
 
@@ -70,15 +49,6 @@ export const extractDate = (dateStr) => {
 export const extractDateStr = (date = new Date()) => extractDate(date.toISOString());
 
 export const getEndOfDay = (date = new Date()) => moment(date).endOf("day").toISOString();
-
-export const notify = (enqueueSnackbar, msg, variant = "success") =>
-  enqueueSnackbar(msg, {
-    variant,
-    anchorOrigin: {
-      vertical: "top",
-      horizontal: "center",
-    },
-  });
 
 const adjustDigits = (value) => {
   if (value < 10) {
@@ -175,10 +145,3 @@ export const isEmptyObject = (object = {}) => Object.keys(object).length === 0;
 export const isEmptyArray = (array = []) => array.length === 0;
 
 export const iff = (condition, then, otherwise) => (condition ? then : otherwise);
-
-export const isLocal = (countryCode) => {
-  if (countryCode === "LK") {
-    return true;
-  }
-  return false;
-};

@@ -1,7 +1,4 @@
 import axios from "axios";
-import { getAccessToken } from "../utils/jwt";
-
-const accessToken = getAccessToken();
 
 const myApiInstance = axios.create({
   // baseURL: process.env.REACT_APP_API_URI,
@@ -20,10 +17,7 @@ const myApiInstance = axios.create({
 });
 
 myApiInstance.interceptors.request.use(
-  (config) => {
-    config.headers["x-access-token"] = `Bearer ${accessToken}`;
-    return config;
-  },
+  (config) => config,
   (error) => {
     Promise.reject(error);
   }
