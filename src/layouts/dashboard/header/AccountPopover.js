@@ -5,26 +5,29 @@ import MenuPopover from "../../../components/MenuPopover";
 import { IconButtonAnimate } from "../../../components/animate";
 import { capitalCase } from "change-case";
 import useAuth from "../../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const MENU_OPTIONS = [
   {
     label: "Home",
-    linkTo: "/",
+    linkTo: "/home",
   },
   {
     label: "Profile",
-    linkTo: "/",
+    linkTo: "my-profile",
   },
   {
     label: "Settings",
     linkTo: "/",
+    disabled: true,
   },
 ];
 
 export default function AccountPopover() {
+  const navigate = useNavigate();
   const { logout, user } = useAuth();
   const [open, setOpen] = useState(null);
-  const { firstName, lastName, email } = user
+  const { firstName, lastName, email } = user;
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
   };
@@ -82,7 +85,15 @@ export default function AccountPopover() {
 
         <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
-            <MenuItem disabled key={option.label} to={option.linkTo} onClick={handleClose}>
+            <MenuItem
+              disabled={option.disabled}
+              key={option.label}
+              to={option.linkTo}
+              onClick={() => {
+                navigate(option.linkTo);
+                handleClose();
+              }}
+            >
               {option.label}
             </MenuItem>
           ))}

@@ -22,7 +22,8 @@ const Login = Loadable(lazy(() => import("../pages/auth/Login")));
 const Register = Loadable(lazy(() => import("../pages/auth/Register")));
 
 // Pages
-const Home = Loadable(lazy(() => import("../pages/Home")));
+const MyProfile = Loadable(lazy(() => import("../pages/profile")));
+const Home = Loadable(lazy(() => import("../pages/home")));
 const PageOne = Loadable(lazy(() => import("../pages/PageOne")));
 const PageTwo = Loadable(lazy(() => import("../pages/PageTwo")));
 
@@ -56,6 +57,14 @@ export default function Router() {
           element: (
             <RoleBasedGuard accessibleRoles={["VIEW_GENERAL_USER_HOME"]}>
               <Home />
+            </RoleBasedGuard>
+          ),
+        },
+        {
+          path: "/my-profile",
+          element: (
+            <RoleBasedGuard accessibleRoles={["VIEW_GENERAL_USER_HOME"]}>
+              <MyProfile />
             </RoleBasedGuard>
           ),
         },
