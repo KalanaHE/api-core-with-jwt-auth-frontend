@@ -65,7 +65,7 @@ export default function DashboardHeader({ onOpenSidebar, isCollapse = false, ver
         {isDesktop && verticalLayout && (
           <Image
             alt={"logo"}
-            src={require("../../../assets/logo/Logo-4.png")}
+            src={require("../../../assets/logo/Logo.png")}
             sx={{ width: 40, height: 40, mr: 2.5 }}
           />
         )}
@@ -75,7 +75,7 @@ export default function DashboardHeader({ onOpenSidebar, isCollapse = false, ver
             <Iconify icon="eva:menu-2-fill" />
           </IconButtonAnimate>
         )}
-        {/* <Searchbar /> */}
+        <Searchbar />
         <Box sx={{ flexGrow: 1 }} />
         <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }}>
           <AccountPopover />

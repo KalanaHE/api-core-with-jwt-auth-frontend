@@ -21,7 +21,7 @@ export default function LogoOnlyLayout() {
         <Image
           disabledEffect={true}
           alt={"logo"}
-          src={require("../assets/logo/Logo-4.png")}
+          src={require("../assets/logo/Logo-hz.png")}
           sx={{ width: 64, height: 64, borderRadius: 1.5, flexShrink: 0 }}
         />
       </HeaderStyle>

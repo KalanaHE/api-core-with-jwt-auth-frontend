@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { styled } from "@mui/material/styles";
 import { Container } from "@mui/material";
-import { HEADER,NAVBAR } from "../../../config";
+import { HEADER } from "../../../config";
 import { NavSectionHorizontal } from "../../../components/nav-section";
 import navConfig from "./NavConfig";
 
@@ -10,7 +10,7 @@ const RootStyle = styled("div")(({ theme }) => ({
     easing: theme.transitions.easing.easeInOut,
     duration: theme.transitions.duration.shorter,
   }),
-  width: NAVBAR.DASHBOARD_COLLAPSE_WIDTH,
+  width: "100%",
   position: "fixed",
   zIndex: theme.zIndex.appBar,
   padding: theme.spacing(1, 0),
